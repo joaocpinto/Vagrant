@@ -47,9 +47,6 @@ rpmbuild -bs /home/mockbuilder/packages/XXX/SPECS/xxx.spec --nodeps
 
 #### 5. build package from SRPM with mock
 
-
-* mock -r <REPO RELEASE> <SRPM PATH>
-
 ```
 mock -r epel-6-x86_64 rebuild /home/mockbuilder/packages/XXX/SRPMS/xxx.src.rpm
 ```
