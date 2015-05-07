@@ -6,6 +6,9 @@ Vagrant.configure(2) do |config|
     # Base box
     config.vm.box = "CentOS-7-minimal"
 
+    # Vagrant box name
+    config.vm.define "CentOS-7-minimal"
+
     # Network
     #config.vm.network "forwarded_port", guest: 22, host: 2223, protocol: 'tcp', auto_correct: 'true'
     config.vm.network "private_network", type: "dhcp"
