@@ -14,26 +14,26 @@ Deploy and create build environment for mock with Vagrant and VirtualBox from bo
 
 
 
-## 1. download vm image and provision it
+#### 1. download vm image and provision it
 
 ```
 vagrant up
 ```
 
-## 2. enter the build environment
+#### 2. enter the build environment
 
 ```
 vagrant ssh
 ```
 
-## 3. change to build user
+#### 3. change to build user
 
 ```
 sudo su - mockbuilder
 ```
 
 
-## 4. Create SRPM for the package
+#### 4. Create SRPM for the package
 
 * copy relevant sources to /home/mockbuilder/packages/XXX/SOURCES
 
@@ -45,7 +45,7 @@ rpmbuild -bs /home/mockbuilder/packages/XXX/SPECS/xxx.spec --nodeps
 ```
 
 
-## 5. build package from SRPM with mock
+#### 5. build package from SRPM with mock
 
 
 * mock -r <REPO RELEASE> <SRPM PATH>
