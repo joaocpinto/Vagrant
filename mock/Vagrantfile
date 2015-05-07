@@ -1,0 +1,50 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+
+    # Base box
+    config.vm.box = "CentOS-7-minimal"
+
+    # Network
+    #config.vm.network "forwarded_port", guest: 22, host: 2223, protocol: 'tcp', auto_correct: 'true'
+    config.vm.network "private_network", type: "dhcp"
+
+    config.vm.box_url = "https://www.dropbox.com/s/j69umchio9qvl0k/CentOS-7-minimal.box?dl=1"
+    config.vm.box_download_checksum_type = "md5"
+    config.vm.box_download_checksum = "126f91c4b2cfbb03986e0b3f970ac551"
+
+    # VirtualBox provider
+    config.vm.hostname = "MOCK-CentOS-7"
+    config.vm.provider "virtualbox" do |vb|
+        vb.gui = false
+        vb.memory = "1024"
+        vb.cpus = "2"
+        vb.name = "MOCK-CentOS-7"
+    end
+
+    # Install chef with omnibus
+    config.omnibus.chef_version = "latest"
+
+    # Make sure ot have vagrant-berkshelf installed before enabling it
+    if Vagrant.has_plugin?("vagrant-berkshelf")
+        config.berkshelf.enabled = true
+    else
+        error = "The vagrant-berkshelf plugin is not installed! Try running:\nvagrant plugin install vagrant-berkshelf"
+        raise Exception, error
+    end
+
+    # Chef config
+    config.vm.provision :chef_solo do |chef|
+        chef.custom_config_path = ".Vagrantfile.chef"
+        chef.cookbooks_path   = "chef/cookbooks"
+        chef.add_recipe "mock::default"
+    end
+
+
+    #config.vm.provision "shell", inline: <<-SHELL
+    #   sudo apt-get update
+    #   sudo apt-get install -y apache2
+    #SHELL
+
+end
